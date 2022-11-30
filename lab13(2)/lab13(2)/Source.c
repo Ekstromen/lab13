@@ -16,7 +16,7 @@ int main()
 	char str[N];
 	char str1[N];
 	char hello[M] = "Hello ";
-	char hello1[M] = "Привет, ";
+	char hello1[M] = "РџСЂРёРІРµС‚, ";
 	printf("Enter your name: ");
 	scanf("%s", str);
 
@@ -46,7 +46,7 @@ int main()
 
 	for (int i = 0; i < strlen(hello1); i++)
 	{
-		if (hello1[i] == 'a' || hello1[i] == 'A' || hello1[i] == 'а' || hello1[i] == 'А') hello1[i] = '@';
+		if (hello1[i] == 'a' || hello1[i] == 'A' || hello1[i] == 'Р°' || hello1[i] == 'Рђ') hello1[i] = '@';
 	}
 
 	for (int i = 0; i < strlen(hello1); i++)
