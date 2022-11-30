@@ -15,7 +15,7 @@ int main()
 	system("chcp 1251");
 	setlocale(LC_ALL, "rus");
 	char str[N];
-	printf("Введите строку:\n");
+	printf("Р’РІРµРґРёС‚Рµ СЃС‚СЂРѕРєСѓ:\n");
 	gets(str);
 	str[strlen(str)] = '\0';
 
