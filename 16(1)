@@ -1,0 +1,181 @@
+#define _CRT_SECURE_NO_DEPRECATE
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <math.h>
+#define M_PI 3.14159265359
+
+double* full_elements(double* ptr_array, int n);
+int put_elements(double* ptr_array, int n);
+double* calc_elements(double* ptr_array, int n);
+double sum_elements(double* ptr_array, int begin, int end);
+int find_element(double* ptr_array, int n, double element);
+double func(double x);
+int function(double* ptr_array, int n, int z);
+int func22(double* ptr_array, int n, int z, int a);
+int delete_n(double* ptr_array, int size);
+
+int main()
+{
+	int size, i = 0, a = 0, b = 0, z = 0, A = 0;
+	int f = -1;
+	double* array;
+	double* calcarray;
+	
+	float c = 0;
+
+	setlocale(LC_ALL, "rus");
+	printf("Введите размер массива > ");
+	scanf("%d", &size);
+	array = (double*)malloc(size * sizeof(double));
+	calcarray = (double*)malloc(size * sizeof(double));
+	full_elements(array, size);
+	while (f != 0)
+	{	printf("Введите 1) для вывода массива 2) для преобразования элементов 3) для суммирования элементов 4) для поиска элемента 5) для поиска максимального значения на позициях массива 6) для поиска числел меньше А 7) удаления всех отрицательных элементов массива 8) вставка значения в элемент массива 0) для завершения работы \n");
+		scanf("%d",&f);
+		switch (f)
+		{
+		case 1:
+			put_elements(array, size);
+			put_elements(calcarray, size);
+			break;
+		case 2:
+			calcarray = calc_elements(array, size);
+			put_elements(calcarray, size);
+			break;
+		case 3:
+			printf("Введите начальный индекс для суммирования элеметов массива\n");
+			scanf("%d", &a);
+			printf("Введите конечный индекс для суммирования элеметов массива\n");
+			scanf("%d", &b);
+			printf("%f \n", sum_elements(array, a, b));
+			break;
+		case 4:
+			printf("Введите значние элемента массива для поиска его индекса\n");
+			scanf("%f", &c);
+			printf("%d \n", find_element(calcarray, size, c));
+			break;
+		case 5:
+			printf("Введите 2 для поиска максимального значения на четных позициях или введите 1 для поиска максимального значения на нечетных позициях\n");
+			scanf("%d", &z);
+			printf("%d \n", function(array, size, z));
+			break;
+		case 6:
+			printf("Введите A \n");
+			scanf("%d", &A);
+			printf("Введите 2 для поиска суммы чисел меньших А на четных позициях или введите 1 для поиска поиска суммы чисел меньших А на нечетных позициях\n");
+			scanf("%d", &z);
+			printf("%d \n", func22(array, size, z, A));
+			break;
+		case 7:
+			delete_n(array, size);
+			break;
+		case 8:
+
+			break;
+		case 0:
+			free(array);
+			free(calcarray);
+		default:
+			break;
+		}
+	}
+	
+}
+
+double* full_elements(double* ptr_array, int n)
+{
+	double x = 1./n;
+	for (int i = 0; i < n; i++)
+	{
+		x +=x;
+		ptr_array[i] = func(x);
+	}
+	return ptr_array;
+}
+
+int put_elements(double* ptr_array, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		printf("%lf \n", ptr_array[i]);
+	}
+	return printf("\n");
+}
+
+double* calc_elements(double* ptr_array, int n)
+{
+	double* new_array = (double*)malloc(n * sizeof(double));
+	for (int i = 0; i < n; i++)
+	{
+		new_array[i] = ceil(ptr_array[i]);
+	}
+	return new_array;
+}
+
+double func(double x)
+{
+	double y;
+	y = (x * x) + (2. * M_PI) * (cos(M_PI * x));
+	return y;
+}
+
+double sum_elements(double* ptr_array, int begin, int end)
+{
+	double sum = 0;
+	for (; begin < end; begin++)
+	{
+		sum += ptr_array[begin];
+	}
+	return sum;
+}
+
+int find_element(double* ptr_array, int n, double element)
+{
+	for (int i = 0; i < n; i++)
+	{
+		if (ptr_array[i] == element)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+int function(double* ptr_array, int n, int z)
+{
+	int mx1 = -1000;
+	int mx2 = -1000;
+	for (int i = 0; i < n; i++)
+	{
+		if (i % 2 == 0 && z == 2) mx1 = fmax(ptr_array[i], mx1);
+		else mx2 = fmax(ptr_array[i], mx2);
+	}
+	if (z == 2) return mx1;
+	else return mx2;
+}
+
+int func22(double* ptr_array, int n, int z, int a)
+{
+	int sum = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if (i % 2 == 0 && z == 2 && ptr_array[i] < a) sum += ptr_array[i];
+		else if (i % 2 == 1 && z == 1 && ptr_array[i] < a) sum += ptr_array[i];
+
+	}
+	return sum;
+}
+
+int delete_n(double* ptr_array, int size)
+{
+	for (int i = 0; i < size-1; i++)
+	{
+		if (ptr_array[i] < 0)
+		{
+			int k = size - 1;
+			for (int i = 0; i < (size - 1); i++)  ptr_array[i] = ptr_array[i + 1];
+			return k;
+		}
+	}
+}
